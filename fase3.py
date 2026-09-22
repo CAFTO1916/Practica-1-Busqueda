@@ -956,41 +956,36 @@ def guardar_grafica_temperaturas(
 # 17. GRAFICA DE OPTIMOS LOCALES
 # ==================================================
 
-def guardar_grafica_optimos(
-    costos
-):
+def guardar_grafica_optimos(costos):
+    costos_redondeados = []
 
-    ejecuciones = list(
-        range(
-            1,
-            len(costos) + 1
-        )
+    for costo in costos:
+        costos_redondeados.append(round(costo, 2))
+
+    valores = sorted(set(costos_redondeados))
+
+    frecuencias = []
+
+    for valor in valores:
+        frecuencias.append(costos_redondeados.count(valor))
+
+    etiquetas = []
+
+    for valor in valores:
+        etiquetas.append(str(valor))
+
+    plt.figure(figsize=(10, 5))
+
+    plt.bar(
+        etiquetas,
+        frecuencias
     )
 
-    plt.figure(
-        figsize=(9, 5)
-    )
+    plt.xlabel("Costo del optimo local en metros")
+    plt.ylabel("Frecuencia")
+    plt.title("Distribucion de costos en los optimos locales")
 
-    plt.plot(
-        ejecuciones,
-        costos,
-        marker="o"
-    )
-
-    plt.xlabel(
-        "Ejecucion"
-    )
-
-    plt.ylabel(
-        "Distancia final en metros"
-    )
-
-    plt.title(
-        "Optimos locales encontrados con 2-opt"
-    )
-
-    plt.grid()
-
+    plt.grid(axis="y")
     plt.tight_layout()
 
     plt.savefig(
