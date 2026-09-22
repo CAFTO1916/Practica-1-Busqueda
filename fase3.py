@@ -1,8 +1,21 @@
 # Fase 3 - Busqueda local
 
+import random
+import networkx as nx
+
 from fase2 import cargar_grafo_urbano
 from fase2 import a_estrella
 from fase2 import heuristica_haversine
+
+def seleccionar_puntos_entrega(G, cantidad=10):
+    componentes = list(nx.strongly_connected_components(G))
+    componente_mayor = max(componentes, key=len)
+    nodos = list(componente_mayor)
+
+    random.seed(42)
+    puntos = random.sample(nodos, cantidad)
+
+    return puntos
 
 
 def distancia_entre_nodos(G, origen, destino):
@@ -26,6 +39,14 @@ def costo_ruta(G, ruta):
 if __name__ == "__main__":
     G, G_proyectado = cargar_grafo_urbano()
     print("Grafo cargado desde Fase 3")
+
+    puntos_entrega = seleccionar_puntos_entrega(G, 10)
+
+    print("Puntos de entrega:")
+    print(puntos_entrega)
+    
+    costo_inicial = costo_ruta(G, puntos_entrega)
+    print("Costo inicial de los 10 puntos:", costo_inicial, "metros")
 
     origen, destino = next(iter(G.edges()))
 
