@@ -4,9 +4,11 @@
 import math
 import random
 import time
+import os
 
 import matplotlib.pyplot as plt
 import networkx as nx
+os.makedirs('data', exist_ok=True)
 
 from fase2 import cargar_grafo_urbano
 from fase2 import a_estrella
@@ -860,9 +862,10 @@ def guardar_grafica_convergencia(
     plt.tight_layout()
 
     plt.savefig(
-        "convergencia_fase3.png",
+        os.path.join('data', "convergencia_fase3.png"),
         dpi=150
     )
+    print("Gráfica de convergencia guardada en la carpeta data/")
 
     plt.close()
 
@@ -945,10 +948,10 @@ def guardar_grafica_temperaturas(
     plt.tight_layout()
 
     plt.savefig(
-        "temperaturas_fase3.png",
+        os.path.join('data', "temperaturas_fase3.png"),
         dpi=150
     )
-
+    print("Gráfica de temperaturas guardada en la carpeta data/")
     plt.close()
 
 
@@ -989,9 +992,10 @@ def guardar_grafica_optimos(costos):
     plt.tight_layout()
 
     plt.savefig(
-        "optimos_locales_fase3.png",
+        os.path.join('data', "optimos_locales_fase3.png"),
         dpi=150
     )
+    print("Gráfica guardada exitosamente en la carpeta data/")
 
     plt.close()
 
@@ -1000,7 +1004,7 @@ def guardar_grafica_optimos(costos):
 # 18. PROGRAMA PRINCIPAL
 # ==================================================
 
-if __name__ == "__main__":
+def main():
 
     random.seed(42)
 
@@ -1429,3 +1433,7 @@ if __name__ == "__main__":
     print(
         "\nFase 3 terminada correctamente."
     )
+
+
+if __name__ == "__main__":
+    main()
