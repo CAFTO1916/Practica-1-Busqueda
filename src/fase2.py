@@ -553,7 +553,9 @@ def visualizar_rutas(G, G_proyectado, origen, destino):
 
     mapa = folium.Map(
         location=[lat_origen, lon_origen],
-        zoom_start=14, tiles="OpenStreetMap")
+        zoom_start=14, 
+        tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France')
 
     folium.Marker([lat_origen, lon_origen],
     tooltip="Origen").add_to(mapa)
