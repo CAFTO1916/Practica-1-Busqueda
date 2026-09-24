@@ -9,8 +9,9 @@ import time
 # 1. Función para descargar el mapa de prueba (ej. zona centro/norte de CDMX)
 def cargar_grafo_urbano():
     # Descarga un grafo dirigido de la zona norte/centro de la CDMX
-    place_name = "Delegación Gustavo A. Madero, Ciudad de Mexico, Mexico" # Ejemplo
-    G = ox.graph_from_place(place_name, network_type="drive")
+    punto_central = (19.4850, -99.1150) # Latitud y Longitud
+    distancia_metros = 3000
+    G = ox.graph_from_point(punto_central, dist=distancia_metros, network_type="drive")
     return G
 
 from collections import deque
@@ -400,7 +401,7 @@ def ejecutar_experimentos(G, origen, alcanzables, num_pruebas=5):
         print(f"{'DFS':<10} | {exp_dfs:<10} | {max_f_dfs:<12} | {arcos_dfs:<6} | {dist_dfs:<14.2f} | {tiempo_dfs:.4f}")
         print(f"{'UCS':<10} | {exp_ucs:<10} | {max_f_ucs:<12} | {arcos_ucs:<6} | {dist_ucs:<14.2f} | {tiempo_ucs:.4f}")
 
-if __name__ == "__main__":
+def main():
     print("1. Descargando grafo urbano de prueba...")
     lugar = "Gustavo A. Madero, Ciudad de Mexico, Mexico"
     G = ox.graph_from_place(lugar, network_type="drive")
@@ -417,3 +418,7 @@ if __name__ == "__main__":
         ejecutar_experimentos(G, deposito, alcanzables, num_pruebas=5)
     else:
         print("Error: No se encontraron nodos alcanzables para realizar los experimentos.")
+
+
+if __name__ == "__main__":
+    main()
